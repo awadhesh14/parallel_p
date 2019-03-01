@@ -6,8 +6,8 @@ int main(void){
   int i;
 
   struct Edge *edges;// = new Edge[nz+1];
-  // edges = read_edges("../input/USA-road-d.CAL.gr",&M,&nz);
-  edges = read_edges("../input/test.input",&M,&nz);
+  edges = read_edges("../input/USA-road-d.CAL.gr",&M,&nz);
+  // edges = read_edges("../input/test.input",&M,&nz);
   double *dist = new double[M];
 
   for(i=0;i<M;i++){
