@@ -28,6 +28,7 @@ int main(void){
     for(int j=0;j<nz;j++)
       if(dist[edges[j].src] + edges[j].wght < dist[edges[j].sink] )
         dist[edges[j].sink] = dist[edges[j].src] + edges[j].wght;
-
+  for(i=0;i<M;i++)
+    fprintf(stdout, "%20.19g\n", dist[i]);
 	return 0;
 }

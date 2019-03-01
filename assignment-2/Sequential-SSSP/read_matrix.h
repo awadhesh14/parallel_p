@@ -89,7 +89,7 @@ void read_M_N_nz(char *path,int *M, int *N,int *nz){
     return;
 }
 void read_Mat(char *path,int M,int N,int nz,Edge edges[]){
-  
+
   FILE *f;
   MM_typecode matcode;
   int ret_code;
