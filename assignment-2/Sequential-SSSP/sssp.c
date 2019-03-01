@@ -23,11 +23,18 @@ int main(void){
   std::memset (dist,std::numeric_limits<double>::infinity(),sizeof dist);
   dist[0] = 0;
   // std::priority_queue<double, std::vector<double>, std::greater<double> >q (dist,dist+nz);
-
-  for(i=0;i<M;i++)
-    for(int j=0;j<nz;j++)
-      if(dist[edges[j].src] + edges[j].wght < dist[edges[j].sink] )
+  int change;
+  for(i=0;i<M;i++){
+    change = 0;
+    for(int j=0;j<nz;j++){
+      if(dist[edges[j].src] + edges[j].wght < dist[edges[j].sink] ){
+        change = 1;
         dist[edges[j].sink] = dist[edges[j].src] + edges[j].wght;
+      }
+    }
+    if(change==0)
+      break;
+  }
   for(i=0;i<M;i++)
     fprintf(stdout, "%20.19g\n", dist[i]);
 	return 0;
