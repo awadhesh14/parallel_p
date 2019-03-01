@@ -21,7 +21,11 @@ int main(void){
   //   printf("%d %d %d %lg\n",i,edges[i].src,edges[i].sink,edges[i].wght);
   double *dist = new double[M];
   std::memset (dist,std::numeric_limits<double>::infinity(),sizeof dist);
-  dist[0] = 0;
+  for(i=0;i<M;i++){
+    dist[i]=DBL_MAX;
+    //fprintf(stdout, "%lg\n", dist[i]);
+  }
+  dist[500] = 0;
   // std::priority_queue<double, std::vector<double>, std::greater<double> >q (dist,dist+nz);
   int change;
   for(i=0;i<M;i++){
@@ -36,6 +40,6 @@ int main(void){
       break;
   }
   for(i=0;i<M;i++)
-    fprintf(stdout, "%20.19g\n", dist[i]);
+    fprintf(stdout, "%lg\n", dist[i]);
 	return 0;
 }
