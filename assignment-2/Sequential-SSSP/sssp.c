@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include "read_matrix.h"
+#include "read_matrix2.h"
 
 int main(void){
   int M, N, nz;
@@ -7,27 +7,24 @@ int main(void){
   double *val;
 
 
-  /*this function is from sequencial-SSSP/read_matrix.h
-  * It reads values of M,N,nz
-  * And it will read I,J,val with zero indexing(not 1-indexing as in MM)
-  */
-  //read_matrix("../input/webbase-1M/webbase-1M.mtx",&M,&N,&nz,I,J,val);
+  // read_V_E("../input/USA-road-d.CAL.gr",&M,&nz);
+  // printf("%d %d \n",M,nz);
 
-  read_M_N_nz("../input/webbase-1M/webbase-1M.mtx",&M,&N,&nz);
-  printf("%d %d %d\n  ",M,N,nz);
-  struct Edge *edges = new Edge[nz+1];
-  read_Mat("../input/webbase-1M/webbase-1M.mtx",M,N,nz,edges);
-  // for(i=0 ; i<nz ; i++)
-  //   printf("%d %d %d %lg\n",i,edges[i].src,edges[i].sink,edges[i].wght);
+  struct Edge *edges;// = new Edge[nz+1];
+  edges = read_edges("../input/USA-road-d.CAL.gr",&M,&nz);
+  // edges = read_edges("../input/test.input",&M,&nz);
   double *dist = new double[M];
-  std::memset (dist,std::numeric_limits<double>::infinity(),sizeof dist);
+  // std::memset (dist,std::numeric_limits<double>::infinity(),sizeof dist);
   for(i=0;i<M;i++){
     dist[i]=DBL_MAX;
-    //fprintf(stdout, "%lg\n", dist[i]);
+    // fprintf(stdout, "%lg\n", dist[i]);
   }
-  dist[500] = 0;
+  dist[0] = 0;
   // std::priority_queue<double, std::vector<double>, std::greater<double> >q (dist,dist+nz);
   int change;
+  // for(i=0;i<nz;i++){
+  //   printf("%d %d %lg\n",edges[i].src,edges[i].sink,edges[i].wght);
+  // }
   for(i=0;i<M;i++){
     change = 0;
     for(int j=0;j<nz;j++){
@@ -38,6 +35,7 @@ int main(void){
     }
     if(change==0)
       break;
+
   }
   for(i=0;i<M;i++)
     fprintf(stdout, "%lg\n", dist[i]);
