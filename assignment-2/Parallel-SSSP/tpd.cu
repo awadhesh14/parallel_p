@@ -5,16 +5,17 @@ using namespace std;
 
 int main(void){
 
-  ofstream op;
-  string op_file = "intermediate";
-  op.open(op_file.c_str());
-  op<<"hello"<<endl;
-  op.close();
+  // ofstream op;
+  // string op_file = "intermediate";
+  // op.open(op_file.c_str());
+  // op<<"hello"<<endl;
+  // op.close();
   int M,nz; // M is no of vertices and nz is no of edges
   int i,j; //for iterator
 
   struct Edge *edges; //to hold the information of all the edges
-  edges = read_edges("../input/USA-road-d.CAL.gr",&M,&nz); //reads the input file in gz format into edges
+  edges = read_edges("../input/test.input",&M,&nz);
+  // edges = read_edges("../input/USA-road-d.CAL.gr",&M,&nz); //reads the input file in gz format into edges
                                                           //also reads the values of M and nz from input graph
   vector<vector<pair<int,int> > > adj; //adjency list represenattion of graph
   adj.resize(M); // resize the main holder array to no of vertices
@@ -36,7 +37,11 @@ int main(void){
         wghts[j++] = (adj[it].at(jt)).second;
     }
   }
-
+  for(i=0;i<M+1;i++)
+    cout<<sources[i]<<" ";
+  cout<<endl;
+  for(i=0;i<nz;i++)
+    cout<<sinks[i]<<" "<<wghts<<endl;
   printf("everything is said and done\n");
 
   return 0;
