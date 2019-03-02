@@ -13,7 +13,7 @@ int main(void){
   for(i=0;i<M;i++){
     dist[i]=DBL_MAX;
   }
-  dist[0] = 0;
+  dist[50000] = 0;
 
   int change;
   for(i=0;i<M;i++){
