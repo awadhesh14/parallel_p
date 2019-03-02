@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-
+#include "read_matrix2.h"
 using namespace std;
 
 struct Edge
@@ -16,7 +16,7 @@ int main(void){
   struct Edge *edges; //to hold the information of all the edges
   edges = read_edges("../input/USA-road-d.CAL.gr",&M,&nz); //reads the input file in gz format into edges
                                                           //also reads the values of M and nz from input graph
-  vector<vector<pair<int,int> > adj; //adjency list represenattion of graph
+  vector<vector<pair<int,int> > > adj; //adjency list represenattion of graph
   adj.resize(M); // resize the main holder array to no of vertices
 
   for (i=0;i<nz;i++){ //populating the adjency list
@@ -28,9 +28,9 @@ int main(void){
   double *wghts = new double[nz];
 
   sources[0] = 0;
-  for(auto it=adj.begin(),i=1,j=0;it!=adj.end();it++,i++){
+  for(vector<vector<pair<int,int> > >::iterator it=adj.begin(),i=1,j=0;it!=adj.end();it++,i++){
     sources[i] = it.size() + sources[i-1];
-    for(auto jt=it.begin();jt!=it.end();jt++){
+    for(vector<pair<int,int> > ::iterator jt=it.begin();jt!=it.end();jt++){
         sinks[j] = (*jt).first;
         wghts[j++] = (*jt).second;
     }
