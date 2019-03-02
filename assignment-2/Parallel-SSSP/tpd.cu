@@ -2,11 +2,6 @@
 #include "read_matrix2.h"
 using namespace std;
 
-struct Edge
-{
-    int src, sink;
-    double wght;
-};
 
 int main(void){
 
