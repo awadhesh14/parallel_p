@@ -13,7 +13,7 @@ int main(void){
   int M,nz; // M is no of vertices and nz is no of edges
   int i,j; //for iterator
 
-  struct *Edge = edges; //to hold the information of all the edges
+  struct Edge *edges; //to hold the information of all the edges
   edges = read_edges("../input/USA-road-d.CAL.gr",&M,&nz); //reads the input file in gz format into edges
                                                           //also reads the values of M and nz from input graph
   vector<vector<pair<int,int> > adj; //adjency list represenattion of graph
