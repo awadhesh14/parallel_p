@@ -5,6 +5,11 @@ using namespace std;
 
 int main(void){
 
+  ofstream op;
+  string op_file = "intermediate";
+  op.open(op_file.c_str());
+  op<<"hello"<<endl;
+  op.close();
   int M,nz; // M is no of vertices and nz is no of edges
   int i,j; //for iterator
 
