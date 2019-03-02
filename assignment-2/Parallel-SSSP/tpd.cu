@@ -2,6 +2,12 @@
 
 using namespace std;
 
+struct Edge
+{
+    int src, sink;
+    double wght;
+};
+
 int main(void){
 
   int M,nz; // M is no of vertices and nz is no of edges
