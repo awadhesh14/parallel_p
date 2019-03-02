@@ -23,11 +23,11 @@ int main(void){
   double *wghts = new double[nz];
 
   sources[0] = 0;
-  for(vector<vector<pair<int,int> > >::iterator it=adj.begin(),i=1,j=0;it!=adj.end();it++,i++){
-    sources[i] = it.size() + sources[i-1];
-    for(vector<pair<int,int> > ::iterator jt=it.begin();jt!=it.end();jt++){
-        sinks[j] = (*jt).first;
-        wghts[j++] = (*jt).second;
+  for(it=0,i=1,j=0 ; it<adj.size() ; it++,i++){
+    sources[i] = adj[it].size() + sources[i-1];
+    for(jt=0 ; jt<adj[it].size() ; jt++){
+        sinks[j] = (adj[it].at(jt)).first;
+        wghts[j++] = (adj[it].at(jt)).second;
     }
   }
 
