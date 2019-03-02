@@ -2,4 +2,4 @@
 #PBS -N myjob
 
 cd /home/dtanwar/parallel_p/assignment-2/Parallel-SSSP/tpd
-./test-cuda
+./tpd
