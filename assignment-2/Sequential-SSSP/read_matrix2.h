@@ -44,6 +44,6 @@ Edge* read_edges(char *path,int *V,int *E){
      }
    }
    // printf("%d\n",i);
-  if (f !=stdin) fclose(f);
+   fclose(f);
   return edges;
 }

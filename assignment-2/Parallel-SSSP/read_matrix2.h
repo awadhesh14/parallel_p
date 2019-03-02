@@ -9,6 +9,7 @@ struct Edge
 
 
 Edge* read_edges(char *path,int *V,int *E){
+  std::cout<<"got into read function"<<endl;
   FILE *f;
   char line[100];
   if ((f = fopen(path,"r")) == NULL){
@@ -44,6 +45,7 @@ Edge* read_edges(char *path,int *V,int *E){
      }
    }
    // printf("%d\n",i);
-  if (f !=stdin) fclose(f);
+   fclose(f);
+   std::cout<<"coming out of it"<<endl;
   return edges;
 }
