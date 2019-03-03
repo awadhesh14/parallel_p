@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+#define THREADS_PER_BLOCK 512
 #include "read_matrix2.h"
+#include "printtofile.h"
 #include "topology_driven.h"
 #include "data_driven.h"
 
@@ -51,10 +53,10 @@ int main(void){
 
 
   //sequential ();
-  topology_driven(N,nz,sources,sinks,wghts);
-  data_driven(N,nz,sources,sinks,wghts);
+  topology_driven(M,nz,sources,sinks,wghts);
+  data_driven(M,nz,sources,sinks,wghts);
 
-  
+
   printf("everything is said and done\n");
 
 

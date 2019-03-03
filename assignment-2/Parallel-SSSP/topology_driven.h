@@ -3,9 +3,9 @@ using namespace std;
 __global__ void sssp_kernel_topology
       (int M, int nz, bool *d_change, int *d_sources, int *d_sinks, float *d_weights, float *d_dist){
 
-  int index = blockIdx.x * blockDim.x + threadIdx.x;
+  int index = blockIdx.x * blockDim.x + threadIdx.x,v;
   if(index>=0 && index<M){
-    if(dist[index] != FLT_MAX){
+    if(d_dist[index] != FLT_MAX){
       for(int i=d_sources[index]; i<d_sources[index+1]; i++){
         v = d_sinks[i];
         if(dist[index] + d_weights[i] < d_dist[v]){
@@ -18,7 +18,7 @@ __global__ void sssp_kernel_topology
 
 }
 
-void topology_driven(int N, int nz, int* sources, int* sinks, float* weights){
+void topology_driven(int M, int nz, int* sources, int* sinks, float* weights){
   /***********************allocating kernel memory***********************************/
   bool *d_change;
   int *d_sources, *d_sinks;
@@ -42,7 +42,7 @@ void topology_driven(int N, int nz, int* sources, int* sinks, float* weights){
     struct timespec tstart={0,0}, tend={0,0};
     clock_gettime(CLOCK_MONOTONIC, &tstart);
 
-    for(i=0;i<M;i++) //initially setting all distances to INFINITY
+    for(int i=0;i<M;i++) //initially setting all distances to INFINITY
       dist[i] = FLT_MAX;
     cudaMemcpy(d_dist   , dist   , (M)   * sizeof(float), cudaMemcpyHostToDevice);
     //s = 0; //s is the single source in SSSP
@@ -61,7 +61,7 @@ void topology_driven(int N, int nz, int* sources, int* sinks, float* weights){
 
       float t = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) -
                 ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
-      printtofile("../results/distances_topology",sssp_sources[s],distances,M)
+      printtofile("../results/distances_topology",sssp_sources[s],dist,M);
       printtimetofile("../times/times_topology",sssp_sources[s],t);
     }
 

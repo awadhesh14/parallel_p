@@ -15,12 +15,12 @@ __device__ static float atomicMinF(float* address, float val)
 __global__ void sssp_kernel_data(int M, int nz,char *d_worklist_in,char *d_worklist_out,
    bool *d_change, int *d_sources, int *d_sinks, float *d_weights, float *d_dist){
 
-  int index = blockIdx.x * blockDim.x + threadIdx.x;
+  int index = blockIdx.x * blockDim.x + threadIdx.x,v;
   if(index>=0 && index<M){
     if(d_worklist_in[index] == '1'){
       for(int i=d_sources[index]; i<d_sources[index+1]; i++){
         v = d_sinks[i];
-        if(dist[index] + d_weights[i] < d_dist[v]){
+        if(d_dist[index] + d_weights[i] < d_dist[v]){
           atomicMinF(&d_dist[v], dist[index] + d_weights[i]);
           *d_change = true;
         }
@@ -30,7 +30,7 @@ __global__ void sssp_kernel_data(int M, int nz,char *d_worklist_in,char *d_workl
 
 }
 
-void data_driven(int N, int nz, int* sources, int* sinks, float* weights,float* dist){
+void data_driven(int M, int nz, int* sources, int* sinks, float* weights,float* dist){
 
   /***********************allocating kernel memory***********************************/
   bool *d_change;
@@ -66,7 +66,7 @@ void data_driven(int N, int nz, int* sources, int* sinks, float* weights,float* 
     struct timespec tstart={0,0}, tend={0,0};
     clock_gettime(CLOCK_MONOTONIC, &tstart);
 
-    for(i=0;i<M;i++) //initially setting all distances to INFINITY
+    for(int i=0;i<M;i++) //initially setting all distances to INFINITY
       dist[i] = FLT_MAX;
 
     s = 0; //s is the single source in SSSP
@@ -92,7 +92,7 @@ void data_driven(int N, int nz, int* sources, int* sinks, float* weights,float* 
 
       float t = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) -
                 ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
-      printtofile("../results/distances_datad",sssp_sources[s],distances,M)
+      printtofile("../results/distances_datad",sssp_sources[s],dist,M);
       printtimetofile("../times/times_datad",sssp_sources[s],t);
     }
 
