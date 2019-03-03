@@ -47,7 +47,7 @@ void data_driven(int M, int nz, int* sources, int* sinks, float* weights){
   cudaMemcpy(d_sources, sources, (M+1) * sizeof(int)  , cudaMemcpyHostToDevice);
   cudaMemcpy(d_sinks  , sinks  , (nz)  * sizeof(int)  , cudaMemcpyHostToDevice);
   cudaMemcpy(d_weights, weights, (nz)  * sizeof(float), cudaMemcpyHostToDevice);
-  cudaMemcpy(d_dist   , dist   , (M)   * sizeof(float), cudaMemcpyHostToDevice);
+
 
   /***********************allocated and copied in kernel***********************************/
 
@@ -68,6 +68,7 @@ void data_driven(int M, int nz, int* sources, int* sinks, float* weights){
 
     for(int i=0;i<M;i++) //initially setting all distances to INFINITY
       dist[i] = FLT_MAX;
+    cudaMemcpy(d_dist   , dist   , (M)   * sizeof(float), cudaMemcpyHostToDevice);
 
     s = 0; //s is the single source in SSSP
     dist[sssp_sources[s]] = 0; //setting the distance of source from itself to be zero

@@ -9,7 +9,7 @@ __global__ void sssp_kernel_topology
       for(int i=d_sources[index]; i<d_sources[index+1]; i++){
         v = d_sinks[i];
         if(d_dist[index] + d_weights[i] < d_dist[v]){
-          d_dist[v] = dist[index] + d_weights[i] ;
+          d_dist[v] = d_dist[index] + d_weights[i] ;
           *d_change = true;
         }
       }
