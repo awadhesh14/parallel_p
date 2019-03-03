@@ -1,6 +1,7 @@
 CC=nvcc
 
 all: tpd
+	qsub samole-script
 
 tpd: tpd.o
 	$(CC) -o tpd tpd.o
