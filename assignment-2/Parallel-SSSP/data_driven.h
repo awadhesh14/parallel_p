@@ -21,7 +21,7 @@ __global__ void sssp_kernel_data(int M, int nz,char *d_worklist_in,char *d_workl
       for(int i=d_sources[index]; i<d_sources[index+1]; i++){
         v = d_sinks[i];
         if(d_dist[index] + d_weights[i] < d_dist[v]){
-          atomicMinF(&d_dist[v], dist[index] + d_weights[i]);
+          atomicMinF(&d_dist[v], d_dist[index] + d_weights[i]);
           *d_change = true;
         }
       }
@@ -30,7 +30,7 @@ __global__ void sssp_kernel_data(int M, int nz,char *d_worklist_in,char *d_workl
 
 }
 
-void data_driven(int M, int nz, int* sources, int* sinks, float* weights,float* dist){
+void data_driven(int M, int nz, int* sources, int* sinks, float* weights){
 
   /***********************allocating kernel memory***********************************/
   bool *d_change;
@@ -60,7 +60,7 @@ void data_driven(int M, int nz, int* sources, int* sinks, float* weights,float* 
   cudaMalloc( (void **) &d_worklist_in , (M) * sizeof(char) );
   cudaMalloc( (void **) &d_worklist_out, (M) * sizeof(char) );
 
-
+  float *dist = new float[M];
   int sssp_sources[] = {0, 500-1, 1000-1, 10000-1, 50000-1, 100000-1};//sourcesof sssp
   for(int s=0; s<6; s++){
     struct timespec tstart={0,0}, tend={0,0};
