@@ -51,7 +51,7 @@ int main(void){
 
   //float *dist;// = new float[M]; //distances of all vertices from source, vertex is represented by index
 
-
+  cout<<"takatak"<<endl;
   //sequential ();
   topology_driven(M,nz,sources,sinks,wghts);
   data_driven(M,nz,sources,sinks,wghts);
