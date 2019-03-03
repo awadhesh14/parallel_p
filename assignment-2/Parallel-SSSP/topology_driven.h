@@ -23,22 +23,23 @@ void topology_driven(int M, int nz, int* sources, int* sinks, float* weights){
   bool *d_change;
   int *d_sources, *d_sinks;
   float *d_weights, *d_dist;
-
+  cout<<"td1"<<endl;
   cudaMalloc( &d_change, sizeof(bool));
   cudaMalloc( (void **) &d_sources, (M+1) * sizeof(int)   );
   cudaMalloc( (void **) &d_sinks  , (nz)  * sizeof(int)   );
   cudaMalloc( (void **) &d_weights, (nz)  * sizeof(float) );
   cudaMalloc( (void **) &d_dist   , (M)   * sizeof(float) );
-
+  cout<<"td2"<<endl;
   cudaMemcpy(d_sources, sources, (M+1) * sizeof(int)  , cudaMemcpyHostToDevice);
   cudaMemcpy(d_sinks  , sinks  , (nz)  * sizeof(int)  , cudaMemcpyHostToDevice);
   cudaMemcpy(d_weights, weights, (nz)  * sizeof(float), cudaMemcpyHostToDevice);
-
+  cout<<"td3"<<endl;
 
   /***********************allocated and copied in kernel***********************************/
   float *dist = new float[M];
   int sssp_sources[] = {0, 500-1, 1000-1, 10000-1, 50000-1, 100000-1};//sourcesof sssp
   for(int s=0; s<6; s++){
+    cout<<"s="<<s<<" td4"<<endl;
     struct timespec tstart={0,0}, tend={0,0};
     clock_gettime(CLOCK_MONOTONIC, &tstart);
 
@@ -49,12 +50,14 @@ void topology_driven(int M, int nz, int* sources, int* sinks, float* weights){
     dist[sssp_sources[s]] = 0; //setting the distance of source from itself to be zero
 
     bool change = true;  //to see if any relaxations have happened
-
+    cout<<"td5"<<endl;
     while(change){
       change = false;
       cudaMemcpy(d_change, &change, sizeof(bool), cudaMemcpyHostToDevice);
+      cout<<"td6"<<endl;
       sssp_kernel_topology<<<(M + (THREADS_PER_BLOCK-1)) / THREADS_PER_BLOCK, THREADS_PER_BLOCK >>>
                         (M, nz, d_change, d_sources, d_sinks, d_weights, d_dist);
+      cout<<"td7"<<endl;
       cudaMemcpy(&change, d_change, sizeof(bool), cudaMemcpyDeviceToHost);
 
       clock_gettime(CLOCK_MONOTONIC, &tend);
@@ -64,7 +67,7 @@ void topology_driven(int M, int nz, int* sources, int* sinks, float* weights){
       printtofile("../results/distances_topology",sssp_sources[s],dist,M);
       printtimetofile("../times/times_topology",sssp_sources[s],t);
     }
-
+    cout<<"td8"<<endl;
   }
 
   free(dist);

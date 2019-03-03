@@ -54,7 +54,7 @@ int main(void){
   cout<<"takatak"<<endl;
   //sequential ();
   topology_driven(M,nz,sources,sinks,wghts);
-  data_driven(M,nz,sources,sinks,wghts);
+  //data_driven(M,nz,sources,sinks,wghts);
 
 
   printf("everything is said and done\n");
