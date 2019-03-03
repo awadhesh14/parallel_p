@@ -4,7 +4,7 @@
 struct Edge
 {
     int src, sink;
-    double wght;
+    float wght;
 };
 
 
@@ -30,15 +30,15 @@ Edge* read_edges(char *path,int *V,int *E){
    // printf("%d %d \n",*V,*E);
    char _t;
    int i=0,u,v;
-   double w;
+   float w;
    while(fgets(line,100,f) != NULL){
      if(line[0] == 'a'){
-       sscanf(line,"%c %d %d %lg",&_t,&u,&v,&w);
-       // printf("%c %d %d %lg\n",_t,u,v,w);
+       sscanf(line,"%c %d %d %f",&_t,&u,&v,&w);
+       // printf("%c %d %d %f\n",_t,u,v,w);
        edges[i].src = u-1;
        edges[i].sink = v-1;
        edges[i].wght = w;
-       // printf("%c %d %d %lg\n",_t,edges[i].src,edges[i].sink,edges[i].wght);
+       // printf("%c %d %d %f\n",_t,edges[i].src,edges[i].sink,edges[i].wght);
        // edges[i].src--;
        // edges[i].sink--;
        i++;

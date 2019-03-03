@@ -1,7 +1,7 @@
 At turing-gpu
 ```
   In parallel_p
-    git fetch -all
+    git fetch --all
     git reset --hard origin/master
     git pull
 ```

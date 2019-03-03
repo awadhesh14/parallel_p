@@ -1,5 +1,8 @@
 #include <bits/stdc++.h>
 #include "read_matrix2.h"
+#include "topology_driven.h"
+#include "data_driven.h"
+
 using namespace std;
 
 
@@ -24,25 +27,37 @@ int main(void){
     adj[edges[i].src].push_back(make_pair(edges[i].sink,edges[i].wght));
   }
 
-  int *sources = new int[M+1];
-  int *sinks = new int[nz];
-  double *wghts = new double[nz];
+  int *sources = new int[M+1]; //this is like CSR ind_ptr edges[i]=sources[i+1]-sources[i]
+                              //to find neighbors of vertex i, do neigh=sources[i];neigh<sources[i+1]
+  int *sinks = new int[nz]; // sinks[sources[i]] to sinks[sources[i+1]-1] belongs to vertex i
+  float *wghts = new float[nz];// same as above has weights for them sinks
 
-  sources[0] = 0;
-  int it,jt;
-  for(it=0,i=1,j=0 ; it<adj.size() ; it++,i++){
+  sources[0] = 0; // initialize to zero, same as ind_ptr in CSR
+  int it,jt; //iterators
+  for(it=0,i=1,j=0 ; it<adj.size() ; it++,i++){ //populating the above 3 from the adjency list
     sources[i] = adj[it].size() + sources[i-1];
     for(jt=0 ; jt<adj[it].size() ; jt++){
         sinks[j] = (adj[it].at(jt)).first;
         wghts[j++] = (adj[it].at(jt)).second;
     }
   }
-  for(i=0;i<M+1;i++)
-    cout<<sources[i]<<" ";
-  cout<<endl;
-  for(i=0;i<nz;i++)
-    cout<<sinks[i]<<" "<<wghts<<endl;
+  // for(i=0;i<M+1;i++)
+  //   cout<<sources[i]<<" ";
+  // cout<<endl;
+  // for(i=0;i<nz;i++)
+  //   cout<<sinks[i]<<" "<<wghts[i]<<endl;
+
+  //float *dist;// = new float[M]; //distances of all vertices from source, vertex is represented by index
+
+
+  //sequential ();
+  topology_driven(N,nz,sources,sinks,wghts);
+  data_driven(N,nz,sources,sinks,wghts);
+
+  
   printf("everything is said and done\n");
+
+
 
   return 0;
 }
