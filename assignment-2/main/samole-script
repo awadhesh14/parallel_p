@@ -1,5 +1,5 @@
 # !/bin/sh
 #PBS -N myjob
 
-cd /home/dtanwar/parallel_p/assignment-2/Parallel-SSSP
-./tpd
+cd /home/dtanwar/parallel_p/assignment-2/main
+./main
