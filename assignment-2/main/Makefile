@@ -1,13 +1,13 @@
 CC=nvcc
 
-all: tpd
+all: main
 	qsub samole-script
 
-tpd: tpd.o
-	$(CC) -o tpd tpd.o
+main: main.o
+	$(CC) -o main main.o
 
-tpd.o: tpd.cu
-	$(CC) -o tpd.o -c tpd.cu
+main.o: main.cu
+	$(CC) -o main.o -c main.cu
 
 clean:
-	rm -f tpd.o tpd
+	rm -f main.o main
