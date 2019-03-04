@@ -3,6 +3,7 @@
 void sequential(int M,int nz, Edge *edges){
 
   float *dist = new float[M];
+  int change;
   int sssp_sources[] = {0, 500-1, 1000-1, 10000-1, 50000-1, 100000-1};//sourcesof sssp
   // int sssp_sources[] = {0,2};
   for(int s=0; s<6; s++){
