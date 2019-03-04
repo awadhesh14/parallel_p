@@ -71,8 +71,9 @@ void data_driven(int M, int nz, int* sources, int* sinks, float* weights){
   cudaMalloc( (void **) &d_worklist_out, (M) * sizeof(char) );
 
   float *dist = new float[M];
-  //int sssp_sources[] = {0, 500-1, 1000-1, 10000-1, 50000-1, 100000-1};//sourcesof sssp
+  // int sssp_sources[] = {0, 500-1, 1000-1, 10000-1, 50000-1, 100000-1};//sourcesof sssp
   int sssp_sources[] = {0,2};
+  // for(int s=0; s<6; s++){
   for(int s=0; s<2; s++){
     struct timespec tstart={0,0}, tend={0,0};
     clock_gettime(CLOCK_MONOTONIC, &tstart);

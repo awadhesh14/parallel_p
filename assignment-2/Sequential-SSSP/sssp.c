@@ -9,13 +9,13 @@ int main(void){
   edges = read_edges("../input/USA-road-d.CAL.gr",&M,&nz);
   // edges = read_edges("../input/test.input",&M,&nz);
   double *dist = new double[M];
-
-  for(i=0;i<M;i++){
-    dist[i]=DBL_MAX;
-  }
-  dist[100000] = 0;
-
   int change;
+  for(i=0;i<M;i++){
+    dist[i]=FLT_MAX;
+  }
+  dist[sssp_sources[s]] = 0;
+
+  change;
   for(i=0;i<M;i++){
     change = 0;
     for(int j=0;j<nz;j++){

@@ -16,7 +16,7 @@ void printtimetofile(string filename,int source,float time){
   ofstream op;
   op.open(filename.c_str() , std::ios_base::app);
 
-  op<< "source = "<<time <<endl;
+  op<< "source = "<<source<<" time "<<time <<endl;
 
   op.close();
 }

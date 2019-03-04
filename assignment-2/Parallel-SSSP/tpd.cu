@@ -4,7 +4,7 @@
 #include "printtofile.h"
 #include "topology_driven.h"
 #include "data_driven.h"
-
+#include "sequential.h"
 using namespace std;
 
 
@@ -20,7 +20,7 @@ int main(void){
 
   struct Edge *edges; //to hold the information of all the edges
   edges = read_edges("../input/test.input",&M,&nz);
-  // edges = read_edges("../input/USA-road-d.CAL.gr",&M,&nz); //reads the input file in gz format into edges
+   // edges = read_edges("../input/USA-road-d.CAL.gr",&M,&nz); //reads the input file in gz format into edges
                                                           //also reads the values of M and nz from input graph
   vector<vector<pair<int,int> > > adj; //adjency list represenattion of graph
   adj.resize(M); // resize the main holder array to no of vertices
@@ -52,7 +52,7 @@ int main(void){
   //float *dist;// = new float[M]; //distances of all vertices from source, vertex is represented by index
 
   cout<<"takatak"<<endl;
-  //sequential ();
+  sequential (M,nz,edges);
   topology_driven(M,nz,sources,sinks,wghts);
   data_driven(M,nz,sources,sinks,wghts);
 
