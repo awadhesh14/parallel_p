@@ -19,8 +19,8 @@ int main(void){
   int i,j; //for iterator
 
   struct Edge *edges; //to hold the information of all the edges
-  edges = read_edges("../input/test.input",&M,&nz);
-   // edges = read_edges("../input/USA-road-d.CAL.gr",&M,&nz); //reads the input file in gz format into edges
+  //edges = read_edges("../input/test.input",&M,&nz);
+  edges = read_edges("../input/USA-road-d.CAL.gr",&M,&nz); //reads the input file in gz format into edges
                                                           //also reads the values of M and nz from input graph
   vector<vector<pair<int,int> > > adj; //adjency list represenattion of graph
   adj.resize(M); // resize the main holder array to no of vertices

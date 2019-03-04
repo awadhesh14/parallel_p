@@ -10,8 +10,6 @@ void sequential(int M,int nz, Edge *edges){
   // for(int s=0; s<2; s++){
   //int lala=1;
   //cout<<(lala++)<<endl;//1
-
-  for(int s=0; s<2; s++){
     struct timespec tstart={0,0}, tend={0,0};
     clock_gettime(CLOCK_MONOTONIC, &tstart);
 //cout<<(lala++)<<endl;//2
