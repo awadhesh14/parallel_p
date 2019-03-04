@@ -5,18 +5,18 @@ __global__ void sssp_kernel_topology
 
   int index = blockIdx.x * blockDim.x + threadIdx.x,v;
   if(index>=0 && index<M){
-    printf("index %d\n",index);
-    for(int j=0;j<M;j++)
-      printf("%f ",d_dist[j] );
-    printf("\n");
+    // printf("index %d\n",index);
+    // for(int j=0;j<M;j++)
+    //   printf("%f ",d_dist[j] );
+    // printf("\n");
     if(d_dist[index] != FLT_MAX){
       for(int i=d_sources[index]; i<d_sources[index+1]; i++){
         v = d_sinks[i];
-        printf("1\n");
+        // printf("1\n");
         if(d_dist[index] + d_weights[i] < d_dist[v]){
           d_dist[v] = d_dist[index] + d_weights[i] ;
           *d_change = true;
-          printf("kernal v=%d change %d\n",v,*d_change);
+          // printf("kernal v=%d change %d\n",v,*d_change);
         }
       }
     }
@@ -43,10 +43,10 @@ void topology_driven(int M, int nz, int* sources, int* sinks, float* weights){
 
   /***********************allocated and copied in kernel***********************************/
   float *dist = new float[M];
-  // int sssp_sources[] = {0, 500-1, 1000-1, 10000-1, 50000-1, 100000-1};//sourcesof sssp
-  int sssp_sources[] = {0,2};
-  // for(int s=0; s<6; s++){
-  for(int s=0; s<2; s++){
+  int sssp_sources[] = {0, 500-1, 1000-1, 10000-1, 50000-1, 100000-1};//sourcesof sssp
+  // int sssp_sources[] = {0,2};
+  for(int s=0; s<6; s++){
+  // for(int s=0; s<2; s++){
     //cout<<"s="<<s<<" td4"<<endl;
     struct timespec tstart={0,0}, tend={0,0};
     clock_gettime(CLOCK_MONOTONIC, &tstart);
